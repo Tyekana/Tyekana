@@ -1,0 +1,213 @@
+//LabApp.java
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
+
+public class LabApp extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField compIP;
+	private JTextField value;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LabApp frame = new LabApp();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LabApp() {
+		setTitle("Lab App");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 413, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Computer Lab");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setBounds(10, 11, 123, 28);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("IP Address");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_1.setBounds(10, 32, 123, 28);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Value");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_2.setBounds(10, 71, 91, 29);
+		contentPane.add(lblNewLabel_2);
+		
+		compIP = new JTextField();
+		compIP.setBounds(143, 38, 226, 20);
+		contentPane.add(compIP);
+		compIP.setColumns(10);
+		
+		value = new JTextField();
+		value.setBounds(143, 77, 226, 20);
+		contentPane.add(value);
+		value.setColumns(10);
+		
+		JButton btnAdd = new JButton("+");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(compIP.getText().equals("")||value.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please fill in all the fields first!");
+				}else
+				{
+				compIP.getText();
+			    value.getText();
+				
+				compIP.setText("");
+				value.setText("");
+				JOptionPane.showMessageDialog(null, "Computer Inserted");
+				}
+			}
+		});
+		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnAdd.setBounds(26, 165, 152, 23);
+		contentPane.add(btnAdd);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				compIP.setText("");
+				value.setText("");
+				
+			}
+		});
+		btnClear.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnClear.setBounds(26, 213, 152, 23);
+		contentPane.add(btnClear);
+		
+		JButton btnExit = new JButton("Exit App");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnExit.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnExit.setBounds(203, 213, 168, 23);
+		contentPane.add(btnExit);
+		
+		JButton btnShowComps = new JButton("Show Computers");
+		btnShowComps.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(compIP.getText().equals("")||value.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "We found nothing to display");
+				}else
+				{
+				JOptionPane.showMessageDialog(null, compIP.getText()+ " : $"+ value.getText()+".00");
+				}
+			}
+		});
+		btnShowComps.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnShowComps.setBounds(203, 165, 168, 23);
+		contentPane.add(btnShowComps);
+	}
+}
+
+//ComputerApp.java
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class ComputerApp {
+	private static List<Computer> labComputers = new ArrayList<>();
+	static boolean addComputer(Computer c) {
+		return labComputers.add(c);
+		
+		
+	}
+	
+}
+
+//Computer.java
+
+public class Computer {
+
+	private String compIP;
+	private int value;
+	
+	
+	public Computer(String compIP, int value ) {
+		this.compIP = compIP;
+		this.value = value;
+	}
+
+
+	public String getComputerIP() {
+		return compIP;
+	}
+
+
+	public void setComputerIP(String computerIP) {
+		this.compIP = computerIP;
+	}
+
+
+	public int getValue() {
+		return value;
+	}
+
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+	
+}
+
+//Main.java
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+public class Main {
+       public static void main(String[] args) {
+    	   List<Computer> listOfComputers = new ArrayList<>();
+			 Computer c1= new Computer("22.0.9", 2000);
+			 Computer c2=new Computer("2.70.3", 7000);
+			 listOfComputers.add(c1);
+			 listOfComputers.add(c2);
+
+		}
+		static void print(List<Computer> l) {
+			String list = "";
+			for (Computer c : l) {
+				list +=	c.getComputerIP()+" : $"+c.getValue();
+				 
+				System.out.println(list);
+			}
+
+	}
+
+}
